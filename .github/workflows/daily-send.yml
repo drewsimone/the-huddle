@@ -15,5 +15,5 @@ jobs:
     steps:
       - name: Trigger daily send
         run: |
-          curl -f -X POST "${{ secrets.SITE_URL }}/api/send-daily" \
+          curl -fL -X POST "${{ secrets.SITE_URL }}/api/send-daily" \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
