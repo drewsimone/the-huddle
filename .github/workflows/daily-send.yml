@@ -1,0 +1,19 @@
+name: Daily Huddle Send
+
+on:
+  schedule:
+    # 11:00 UTC = 6:00 AM Eastern (EST, winter). During Eastern Daylight
+    # Time (summer) this fires at 7:00 AM instead — GitHub Actions cron
+    # runs on UTC and does not auto-adjust for daylight saving.
+    # Change 11 to whichever UTC hour matches your desired local time.
+    - cron: '0 11 * * *'
+  workflow_dispatch: {} # lets you trigger a manual test run from the Actions tab
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger daily send
+        run: |
+          curl -f -X POST "${{ secrets.SITE_URL }}/api/send-daily" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
