@@ -9,17 +9,10 @@ module.exports = async (req, res) => {
   // who finds the URL. GitHub Actions sends this header (see the
   // workflow file in .github/workflows/daily-send.yml).
  const authHeader = req.headers['authorization'];
-  const expected = `Bearer ${process.env.CRON_SECRET}`;
-  if (authHeader !== expected) {
-    console.log('Auth debug:', {
-      hasSecretEnvVar: !!process.env.CRON_SECRET,
-      secretLength: process.env.CRON_SECRET ? process.env.CRON_SECRET.length : 0,
-      receivedLength: authHeader ? authHeader.length : 0,
-      expectedLength: expected.length
-    });
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
+     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+       res.status(401).json({ error: 'Unauthorized' });
+       return;
+     }
 
   const { data: subscribers, error } = await supabase
     .from('subscribers')
