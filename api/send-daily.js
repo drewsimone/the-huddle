@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
             <p style="font-size: 12px; color: #999;">
               You're getting this because you signed up at The Huddle.
               <a href="${unsubscribeUrl}">Unsubscribe</a><br>
-              [Your business mailing address here]
+              9842 Beaver Creek Lane, Fishers, IN 46037
             </p>
           </div>
         `
